@@ -8,11 +8,17 @@ namespace FullWebappAutomation
 {
     class Consts
     {
+        // Webapp url data:
         public const string webappSandboxLoginPageUrl = "https://app.sandbox.pepperi.com/#/";
         public const string webappSandboxHomePageUrl = "https://app.sandbox.pepperi.com/#/HomePage";
 
-        public const int maxRetryCount = 15;
+        // Backoffice url data:
+        public const string backofficeSandboxLoginPageUrl = "https://sandbox.pepperi.com/Login/WrntyLogin.aspx";
+        public const string backofficeSandboxHomePageUrl = "https://sandbox.pepperi.com/Views/Dashboards/OrdersDashboard.aspx?cls=1&lang=en";
+
+        public const int maxRetryCount = 30;
         public const int actionPerformanceLimit = 3;
+        public const int bufferTime = 10000;
 
         public enum ObjectType
         {

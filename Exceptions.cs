@@ -6,6 +6,24 @@ using System.Threading.Tasks;
 
 namespace FullWebappAutomation
 {
+
+    class AssertionException : Exception
+    {
+        public AssertionException()
+        {
+        }
+
+        public AssertionException(string message)
+            : base(message)
+        {
+        }
+
+        public AssertionException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
+    }
+
     class RetryException : Exception
     {
         public RetryException()

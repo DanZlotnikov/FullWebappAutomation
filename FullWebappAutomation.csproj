@@ -64,7 +64,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="RetryException.cs" />
+    <Compile Include="Backoffice.cs" />
+    <Compile Include="Exceptions.cs" />
     <Compile Include="TestOnChrome.cs" />
     <Compile Include="Tests.cs" />
     <Page Include="MainWindow.xaml">

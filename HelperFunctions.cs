@@ -13,6 +13,23 @@ namespace FullWebappAutomation
 {
     class HelperFunctions
     {
+        /// <summary>
+        /// Asserts a condition and throws AssertionException if false
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="message"></param>
+        public static void Assert(bool condition, string message)
+        {
+            if (condition)
+                return;
+
+            if (message != null)
+            {
+                throw new AssertionException(message);
+            }
+
+            else throw new AssertionException("Unknown assertion error");
+        }
 
         /// <summary>
         /// Delegate a function into an object
@@ -379,7 +396,7 @@ namespace FullWebappAutomation
             var data = string.Empty;
 
             // API request url, with inserted data from method params
-            string url = string.Format(@"https://apint.pepperi.com/restapi/PepperiAPInt.Data.svc/V1.0/{0}?where={1}='{2}'", objectType, property, value);
+            string url = string.Format(@"https://apint.sandbox.pepperi.com/restapi/PepperiAPInt.Data.svc/V1.0/{0}?where={1}='{2}'", objectType, property, value);
 
             // Create the request object
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);

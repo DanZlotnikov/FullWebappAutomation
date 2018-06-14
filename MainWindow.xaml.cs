@@ -39,7 +39,7 @@ namespace FullWebappAutomation
         private void InitVariables()
         {
             usernames = new string[] { "automation@pepperitest.com", "flatqa@pepperitest.com", "daniel3@pepperitest.com" };
-            tests = new string[] { "Login", "Resync", "Sales Order" };
+            tests = new string[] { "Login", "Resync", "Sales Order", "All Backoffice Menus" };
 
             testsToRun = new Dictionary<string, bool>();
             for (int i = 0; i < tests.Length; i++)
