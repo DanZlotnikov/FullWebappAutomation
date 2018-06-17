@@ -213,7 +213,7 @@ namespace FullWebappAutomation
                 }
             }
 
-            string errorMessage = string.Format("SendKeys action failed for element at XPath: {0}", elementXPath);
+            string errorMessage = string.Format("GetValue action failed for element at XPath: {0}", elementXPath);
             RetryException error = new RetryException(errorMessage);
             throw error;
         }
@@ -408,6 +408,7 @@ namespace FullWebappAutomation
             request.Headers.Add("Authorization", encoded);
 
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+
             // Data stream from request        
             using (Stream stream = response.GetResponseStream())
             using (StreamReader reader = new StreamReader(stream))

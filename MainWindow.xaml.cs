@@ -39,7 +39,7 @@ namespace FullWebappAutomation
         private void InitVariables()
         {
             usernames = new string[] { "automation@pepperitest.com", "flatqa@pepperitest.com", "daniel3@pepperitest.com" };
-            tests = new string[] { "Login", "Resync", "Sales Order", "All Backoffice Menus" };
+            tests = new string[] {"Resync", "Config Home Button", "Config App Buttons", "Sales Order", "All Backoffice Menus" };
 
             testsToRun = new Dictionary<string, bool>();
             for (int i = 0; i < tests.Length; i++)
@@ -183,7 +183,6 @@ namespace FullWebappAutomation
             {
                 if (usersRadioButtons[i].IsChecked == true)
                     chosenUsername = usersRadioButtons[i].Content.ToString();
-                Console.WriteLine(usersRadioButtons[i].IsChecked.ToString());
             }
 
         }

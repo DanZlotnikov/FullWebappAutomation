@@ -36,7 +36,7 @@ namespace FullWebappAutomation
 
                 finally
                 {
-                    WriteToSuccessLog("WebappSandboxLogin", testSuccess, error);
+                    WriteToSuccessLog("Backoffice_Sandbox_Login", testSuccess, error);
                 }
 
             }

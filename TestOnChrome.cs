@@ -36,19 +36,37 @@ namespace FullWebappAutomation
             username = chosenUsername;
             password = GetUserPassword(username);
 
-            if (testsToRun["Login"])
-                WebappSandboxLogin(webappDriver, username, password);
+            Webapp_Sandbox_Login(webappDriver, username, password);
+            Backoffice.GeneralActions.SandboxLogin(backofficeDriver, username, password);
 
-            if (testsToRun["Sales Order"])
+            if(testsToRun["Resync"])
             {
-                Delegator delegatedFunction = WebappSandboxSalesOrder;
+                Delegator delegatedFunction = Webapp_Sandbox_Resync;
                 BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
             }
 
-            if(testsToRun["All Backoffice Menus"])
+            if (testsToRun["Config Home Button"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Config_Home_Button;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
+            if (testsToRun["Config App Buttons"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Config_App_Buttons;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
+            if (testsToRun["Sales Order"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Sales_Order;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
+            if (testsToRun["All Backoffice Menus"])
             {
                 Backoffice.GeneralActions.SandboxLogin(backofficeDriver, username, password);
-                
+
                 Backoffice.CompanyProfile.App_Home_Screen(backofficeDriver);
                 Backoffice.CompanyProfile.Branding(backofficeDriver);
                 Backoffice.CompanyProfile.Company_Profile(backofficeDriver);
@@ -61,7 +79,7 @@ namespace FullWebappAutomation
                 Backoffice.Catalogs.Edit_Form(backofficeDriver);
                 Backoffice.Catalogs.Catalog_Views(backofficeDriver);
                 Backoffice.Catalogs.Fields(backofficeDriver);
-                
+
                 Backoffice.Items.Order_Center_Thumbnail_Views(backofficeDriver);
                 Backoffice.Items.Order_Center_Grid_View(backofficeDriver);
                 Backoffice.Items.Order_Center_Matrix_View(backofficeDriver);
