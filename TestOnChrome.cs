@@ -63,6 +63,12 @@ namespace FullWebappAutomation
                 BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
             }
 
+            if (testsToRun["Item Search"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Item_Search;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
             if (testsToRun["All Backoffice Menus"])
             {
                 Backoffice.GeneralActions.SandboxLogin(backofficeDriver, username, password);

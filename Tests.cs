@@ -415,5 +415,40 @@ namespace FullWebappAutomation
             // Save button
             SafeClick(backofficeDriver, "//div[@id='formContTemplate']/div[4]/div/div");
         }
+
+
+        public static void Webapp_Sandbox_Item_Search(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            GetToOrderCenter(webappDriver);
+
+            // Get item name from webpage
+            string itemName = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[6]/figure/app-custom-field-generator/app-custom-textbox/label/span", "innerHTML");
+
+            // Get item ID from API
+            var apiData = GetApiData(username, password, "items", "Name", itemName);
+            string apiItemCode = apiData[0].ExternalID.ToString();
+
+            // Click search icon
+            SafeClick(webappDriver, "//body/app-root/div/app-order-center/div/app-bread-crumbs/div/div/div/span/i");
+
+            // Input search parameter
+            SafeSendKeys(webappDriver, "//body/app-root/div/app-order-center/div/app-bread-crumbs/div/div/div/div[5]/div/div/input", apiItemCode);
+
+            // Click search button
+            SafeClick(webappDriver, "//body/app-root/div/app-order-center/div/app-bread-crumbs/div/div/div/div[5]/div/div/span[2]");
+
+            Thread.Sleep(bufferTime);
+
+            // Get item code from webpage
+            string actualItemName = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[6]/figure/app-custom-field-generator/app-custom-textbox/label/span", "innerHTML");
+
+            Assert(itemName == actualItemName, "Actual item doesn't match expected");
+        }
+
+
+        public static void Webapp_Sandbox_Minimum_Quantity(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace FullWebappAutomation
 
         public const int maxRetryCount = 30;
         public const int actionPerformanceLimit = 3;
-        public const int bufferTime = 10000;
+        public const int bufferTime = 5000;
 
         public enum ObjectType
         {
