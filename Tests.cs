@@ -104,6 +104,12 @@ namespace FullWebappAutomation
             // Home button
             SafeClick(webappDriver, "//a[@id='btnMenuHome']/span");
 
+            try
+            {
+                SafeClick(webappDriver, "//div[@class='btn allButtons btnOk grnbtn ng-star-inserted']");
+            }
+            catch { }
+
             Webapp_Sandbox_Check_Sales_Order(webappDriver, orderInfo);
             Backoffice_Sandbox_Check_Sales_Order(backofficeDriver, orderInfo);
         }
@@ -448,7 +454,34 @@ namespace FullWebappAutomation
 
         public static void Webapp_Sandbox_Minimum_Quantity(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
         {
+            GetToOrderCenter(webappDriver);
 
+            // Get item ID from webpage
+            string itemID = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[7]/figure/app-custom-field-generator/app-custom-textbox/label/span", "innerHTML");
+
+            // Get item's min qty
+            var apiData = GetApiData(username, password, "items", "ExternalID", itemID);
+
+            // Parse the data to integer and store it in variable
+            Int32.TryParse(apiData[0].MinimumQuantity.ToString(), out int apiItemMinQty);
+
+            Assert(apiItemMinQty > 1, "Item Qty is 1, unable to perform test");
+
+            // Item Qty selector field
+            SafeClick(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[8]/figure/app-custom-field-generator/app-custom-quantity-selector/div/input");
+
+            // Insert less than min qty into qty selector
+            SafeSendKeys(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[8]/figure/app-custom-field-generator/app-custom-quantity-selector/div/input", (apiItemMinQty - 1).ToString());
+
+            // Click outside the box
+            SafeClick(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]");
+
+            Thread.Sleep(bufferTime);
+
+            // Check qty selector style - supposed to be red (alerted)
+            string qtySelectorStyle = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[8]/figure/app-custom-field-generator/app-custom-quantity-selector/div/input", "style");
+
+            Assert(qtySelectorStyle.Contains("color: rgb(255, 0, 0);"), "Min qty doesn't mark in red");
         }
     }
 }

@@ -69,6 +69,12 @@ namespace FullWebappAutomation
                 BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
             }
 
+            if (testsToRun["Minimum Quantity"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Minimum_Quantity;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
             if (testsToRun["All Backoffice Menus"])
             {
                 Backoffice.GeneralActions.SandboxLogin(backofficeDriver, username, password);

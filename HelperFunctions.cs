@@ -52,6 +52,7 @@ namespace FullWebappAutomation
 
             try
             {
+                webappDriver.Navigate().GoToUrl(webappSandboxHomePageUrl);
                 delegatedFunction(webappDriver, backofficeDriver);
             }
             catch (Exception e)
@@ -200,7 +201,6 @@ namespace FullWebappAutomation
                 try
                 {
                     element = webappDriver.FindElementByXPath(elementXPath);
-                    Highlight(webappDriver, element);
                     var value = element.GetAttribute(attribute);
 
                     return value;
