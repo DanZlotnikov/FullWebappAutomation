@@ -47,6 +47,8 @@ namespace FullWebappAutomation
                 "Sales Order",
                 "Item Search",
                 "Minimum Quantity",
+                "Delete Cart Item",
+                "Unit Price Discount",
                 "All Backoffice Menus"
             };
 

@@ -70,7 +70,7 @@ namespace FullWebappAutomation
         /// Gets from home page to cart(Sales Order > Store1 > Default Catalog)
         /// </summary>
         /// <param name="webappDriver"></param>
-        public static void GetToOrderCenter(RemoteWebDriver webappDriver)
+        public static void GetToOrderCenter_SalesOrder(RemoteWebDriver webappDriver)
         {
             webappDriver.Navigate().GoToUrl(webappSandboxHomePageUrl);
 
@@ -101,12 +101,43 @@ namespace FullWebappAutomation
             SafeClick(webappDriver, "//div[@id='container']/div[2]");
         }
 
+        public static void GetToOrderCenter_SalesOrder2(RemoteWebDriver webappDriver)
+        {
+            webappDriver.Navigate().GoToUrl(webappSandboxHomePageUrl);
+
+            // Accounts
+            SafeClick(webappDriver, "//div[@id='mainCont']/app-home-page/footer/div/div[2]/div/div");
+
+            // First account
+            SafeClick(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div[1]/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span");
+
+
+            Thread.Sleep(5000);
+
+            // Plus button
+            SafeClick(webappDriver, "//div[@id='actionBar']/div/ul[3]/li/a/span");
+
+            // Sales Order 2
+            SafeClick(webappDriver, "//div[@id='actionBar']/div/ul[3]/li/ul/li[2]/span");
+
+            /*      
+            // Origin account
+            SafeClick(webappDriver, "//body/app-root/div/app-accounts-home-page/object-chooser-modal/div/div/div/div/div/div/app-custom-list/virtual-scroll/div/div[2]/app-custom-form/fieldset/div");
+
+            //Done
+            SafeClick(driver, "//div[@id='mainCont']/app-accounts-home-page/object-chooser-modal/div/div/div/div[3]/div[2]");
+            */
+
+            // Default Catalog
+            SafeClick(webappDriver, "//div[@id='container']/div[2]");
+        }
+
         /// <summary>
         /// Clicks an element in the web page. Uses retry logic for a specified amount of tries. One second buffer between tries.
         /// </summary>
-        /// <param name="webappDriver"></param>
+        /// <param name="driver"></param>
         /// <param name="elementXPath"></param>
-        public static void SafeClick(RemoteWebDriver webappDriver, string elementXPath)
+        public static void SafeClick(RemoteWebDriver driver, string elementXPath)
         {
             IWebElement element;
 
@@ -115,8 +146,8 @@ namespace FullWebappAutomation
             {
                 try
                 {
-                    element = webappDriver.FindElementByXPath(elementXPath);
-                    Highlight(webappDriver, element);
+                    element = driver.FindElementByXPath(elementXPath);
+                    Highlight(driver, element);
                     element.Click();
 
                     break;
@@ -153,10 +184,10 @@ namespace FullWebappAutomation
         /// <summary>
         /// Sends keys to an element in the web page. Uses retry logic for a specified amount of tries. One second buffer between tries.
         /// </summary>
-        /// <param name="webappDriver"></param>
+        /// <param name="driver"></param>
         /// <param name="elementXPath"></param>
         /// <param name="KeysToSend"></param>
-        public static void SafeSendKeys(RemoteWebDriver webappDriver, string elementXPath, string KeysToSend)
+        public static void SafeSendKeys(RemoteWebDriver driver, string elementXPath, string KeysToSend)
         {
             IWebElement element;
 
@@ -165,8 +196,8 @@ namespace FullWebappAutomation
             {
                 try
                 {
-                    element = webappDriver.FindElementByXPath(elementXPath);
-                    Highlight(webappDriver, element);
+                    element = driver.FindElementByXPath(elementXPath);
+                    Highlight(driver, element);
                     element.SendKeys(KeysToSend);
 
                     return;
@@ -185,13 +216,10 @@ namespace FullWebappAutomation
         }
 
         /// <summary>
-        /// Gets value from an element in the web page. Uses retry logic for a specified amount of tries. One second buffer between tries.
+        /// Clears an element in the web page. Uses retry logic.
         /// </summary>
-        /// <param name="webappDriver"></param>
-        /// <param name="elementXPath"></param>
-        /// <param name="attribute"></param>
-        /// <returns></returns>
-        public static dynamic SafeGetValue(RemoteWebDriver webappDriver, string elementXPath, string attribute)
+        /// <param name="driver"></param>
+        public static void SafeClear(RemoteWebDriver driver, string elementXPath)
         {
             IWebElement element;
 
@@ -200,7 +228,41 @@ namespace FullWebappAutomation
             {
                 try
                 {
-                    element = webappDriver.FindElementByXPath(elementXPath);
+                    element = driver.FindElementByXPath(elementXPath);
+                    Highlight(driver, element);
+                    element.Clear();
+                    return;
+                }
+                catch (Exception e)
+                {
+                    Thread.Sleep(1000);
+                    retryCount++;
+                    continue;
+                }
+            }
+
+            string errorMessage = string.Format("SendKeys action failed for element at XPath: {0}", elementXPath);
+            RetryException error = new RetryException(errorMessage);
+            throw error;
+        }
+
+        /// <summary>
+        /// Gets value from an element in the web page. Uses retry logic for a specified amount of tries. One second buffer between tries.
+        /// </summary>
+        /// <param name="driver"></param>
+        /// <param name="elementXPath"></param>
+        /// <param name="attribute"></param>
+        /// <returns></returns>
+        public static dynamic SafeGetValue(RemoteWebDriver driver, string elementXPath, string attribute)
+        {
+            IWebElement element;
+
+            int retryCount = 1;
+            while (retryCount < maxRetryCount)
+            {
+                try
+                {
+                    element = driver.FindElementByXPath(elementXPath);
                     var value = element.GetAttribute(attribute);
 
                     return value;

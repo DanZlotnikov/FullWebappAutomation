@@ -26,6 +26,7 @@ namespace FullWebappAutomation
             webappDriver.Quit();
             backofficeDriver.Quit();
             WriteToFinalizedPerformanceLog();
+            System.Diagnostics.Process.Start(successLogFilePath);
         }
 
         /// <summary>
@@ -72,6 +73,18 @@ namespace FullWebappAutomation
             if (testsToRun["Minimum Quantity"])
             {
                 Delegator delegatedFunction = Webapp_Sandbox_Minimum_Quantity;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
+            if (testsToRun["Delete Cart Item"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Delete_Cart_Item;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
+            if (testsToRun["Unit Price Discount"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Unit_Price_Discount;
                 BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
             }
 
