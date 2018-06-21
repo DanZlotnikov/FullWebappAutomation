@@ -12,6 +12,82 @@ namespace FullWebappAutomation
 {
     class Tests
     {
+        public static void All_Backoffice_Menus(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            Backoffice.GeneralActions.SandboxLogin(backofficeDriver, username, password);
+
+            Backoffice.CompanyProfile.App_Home_Screen(backofficeDriver);
+            Backoffice.CompanyProfile.Branding(backofficeDriver);
+            Backoffice.CompanyProfile.Company_Profile(backofficeDriver);
+            Backoffice.CompanyProfile.Email_Settings(backofficeDriver);
+            Backoffice.CompanyProfile.Home_Screen_Shortcut(backofficeDriver);
+            Backoffice.CompanyProfile.Security(backofficeDriver);
+            Backoffice.CompanyProfile.Sync_Settings(backofficeDriver);
+
+            Backoffice.Catalogs.Manage_Catalogs(backofficeDriver);
+            Backoffice.Catalogs.Edit_Form(backofficeDriver);
+            Backoffice.Catalogs.Catalog_Views(backofficeDriver);
+            Backoffice.Catalogs.Fields(backofficeDriver);
+
+            Backoffice.Items.Order_Center_Thumbnail_Views(backofficeDriver);
+            Backoffice.Items.Order_Center_Grid_View(backofficeDriver);
+            Backoffice.Items.Order_Center_Matrix_View(backofficeDriver);
+            Backoffice.Items.Order_Center_Flat_Matrix_View(backofficeDriver);
+            Backoffice.Items.Order_Center_Item_Details_View(backofficeDriver);
+            Backoffice.Items.Catalog_Item_View(backofficeDriver);
+            Backoffice.Items.Item_Share_Email_Info(backofficeDriver);
+            Backoffice.Items.Smart_Search(backofficeDriver);
+            Backoffice.Items.Filters(backofficeDriver);
+            Backoffice.Items.Automated_Image_Uploader(backofficeDriver);
+            Backoffice.Items.Fields(backofficeDriver);
+
+            Backoffice.Accounts.Views_And_Forms(backofficeDriver);
+            Backoffice.Accounts.Accounts_Lists(backofficeDriver);
+            Backoffice.Accounts.Accounts_Lists_New(backofficeDriver);
+            Backoffice.Accounts.Map_View(backofficeDriver);
+            Backoffice.Accounts.Card_Layout(backofficeDriver);
+            Backoffice.Accounts.Account_Dashboard_Layout(backofficeDriver);
+            Backoffice.Accounts.Search(backofficeDriver);
+            Backoffice.Accounts.Smart_Search(backofficeDriver);
+            Backoffice.Accounts.Fields(backofficeDriver);
+
+            Backoffice.PricingPolicy.Pricing_Policy(backofficeDriver);
+            Backoffice.PricingPolicy.Price_Level(backofficeDriver);
+            Backoffice.PricingPolicy.Main_Category_Discount(backofficeDriver);
+            Backoffice.PricingPolicy.Account_Special_Price_List(backofficeDriver);
+
+            Backoffice.Users.Manage_Users(backofficeDriver);
+            Backoffice.Users.Role_Heirarchy(backofficeDriver);
+            Backoffice.Users.Profiles(backofficeDriver);
+            Backoffice.Users.User_Lists(backofficeDriver);
+            Backoffice.Users.Targets_Type(backofficeDriver);
+            Backoffice.Users.Manage_Targets(backofficeDriver);
+            Backoffice.Users.Rep_Dashboard_Add_Ons(backofficeDriver);
+
+            Backoffice.Contacts.Contact_Lists(backofficeDriver);
+
+            Backoffice.SalesActivities.Transaction_Types(backofficeDriver);
+            Backoffice.SalesActivities.Activity_Types(backofficeDriver);
+            Backoffice.SalesActivities.Sales_Activity_Lists(backofficeDriver);
+            Backoffice.SalesActivities.Activity_List_Display_Options(backofficeDriver);
+            Backoffice.SalesActivities.Activities_And_Menu_Setup(backofficeDriver);
+            Backoffice.SalesActivities.Sales_Dashboard_Settings(backofficeDriver);
+
+            Backoffice.ActivityPlanning.Account_Lists(backofficeDriver);
+            Backoffice.ActivityPlanning.Activity_Planning_Display_Options(backofficeDriver);
+
+            Backoffice.ERPIntegration.Plugin_Settings(backofficeDriver);
+            Backoffice.ERPIntegration.Configuration(backofficeDriver);
+            Backoffice.ERPIntegration.File_Uploads_And_Logs(backofficeDriver);
+
+            Backoffice.ConfigurationFiles.Automated_Reports(backofficeDriver);
+            Backoffice.ConfigurationFiles.Configuration_Files(backofficeDriver);
+            Backoffice.ConfigurationFiles.Translation_Files(backofficeDriver);
+            Backoffice.ConfigurationFiles.Online_Add_Ons(backofficeDriver);
+            Backoffice.ConfigurationFiles.User_Defined_Tables(backofficeDriver);
+        }
+
+
         public static void Webapp_Sandbox_Login(RemoteWebDriver webappDriver, string username, string password)
         {
             Exception error = null;
@@ -580,6 +656,90 @@ namespace FullWebappAutomation
             double.TryParse(discountStr, out double discount);
 
             Assert(discount == (((unitPrice - unitPriceAfterDiscount) / unitPrice) * 100), "Discount miscalculated");
+        }
+
+        // Checked with "Sales Order" 
+        public static void Webapp_Sandbox_Continue_Ordering(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            // Dictionary to store order info to assert later
+            Dictionary<string, string> orderInfo = new Dictionary<string, string>();
+
+            GetToOrderCenter_SalesOrder(webappDriver);
+
+            // Item qty plus
+            SafeClick(webappDriver,
+               "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[8]/figure/app-custom-field-generator/app-custom-quantity-selector/div/span[2]/i");
+
+            Thread.Sleep(bufferTime);
+
+            // Get units qty from qty selector
+            orderInfo["unitsQty"] = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[8]/figure/app-custom-field-generator/app-custom-quantity-selector/div/input", "innerHTML");
+
+            // Cart
+            SafeClick(webappDriver, "//button[@id='goToCartBtn']/span");
+
+            // Transaction Menu
+            SafeClick(webappDriver, "//div[@id='containerActions']/ul/li/a/i");
+
+            // Order details
+            SafeClick(webappDriver, "//div[@id='containerActions']/ul/li/ul/li/span");
+
+            // Create remark and store it
+            orderInfo["orderRemark"] = "Automation " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+
+            // Click remark field
+            SafeClick(webappDriver, "//div[@id='orderDetailsContainer']/app-custom-form/fieldset/div[15]/div/app-custom-field-generator/app-custom-textbox/div/input");
+
+            // Add remark
+            SafeSendKeys(webappDriver, "//div[@id='orderDetailsContainer']/app-custom-form/fieldset/div[15]/div/app-custom-field-generator/app-custom-textbox/div/input", orderInfo["orderRemark"]);
+
+            // Save button
+            SafeClick(webappDriver, "//body/app-root/div/app-order-details/app-bread-crumbs/div/div/div/div[3]/div[2]");
+
+            // Home button
+            SafeClick(webappDriver, "//a[@id='btnMenuHome']/span");
+
+            webappDriver.Navigate().GoToUrl(webappSandboxHomePageUrl);
+
+            // Activities
+            SafeClick(webappDriver, "//div[@id='mainCont']/app-home-page/footer/div/div[2]/div[2]/div");
+
+            //  Find the sales order in activity list
+            string actualRemark;
+            int orderIndexInList = 0;
+
+            for (int i = 1; i < 12; i++)
+            {
+                actualRemark = SafeGetValue(webappDriver, string.Format("(//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span)[{0}]", i), "innerHTML").ToString();
+
+                if (actualRemark == orderInfo["orderRemark"])
+                {
+                    orderIndexInList = i;
+                }
+            }
+
+            // Drill down into the sales order 
+            SafeClick(webappDriver, string.Format("(//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span)[{0}]", orderIndexInList));
+
+            // Continue ordering
+            SafeClick(webappDriver, "(//button[@type='button'])[2]");
+
+            // Item qty plus
+            SafeClick(webappDriver,
+               "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[8]/figure/app-custom-field-generator/app-custom-quantity-selector/div/span[2]/i");
+
+            // Cart
+            SafeClick(webappDriver, "//button[@id='goToCartBtn']/span");
+
+            // Submit
+            SafeClick(webappDriver, "//button[@id='btnTransition']/span");
+        }
+
+
+        // Checked with "Sales Order"
+        public static void Webapp_Sandbox_Duplicate_Line(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+
         }
     }
 }

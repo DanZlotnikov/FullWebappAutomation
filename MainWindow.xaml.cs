@@ -49,7 +49,7 @@ namespace FullWebappAutomation
                 "Minimum Quantity",
                 "Delete Cart Item",
                 "Unit Price Discount",
-                "All Backoffice Menus"
+                "Continue Ordering"
             };
 
             testsToRun = new Dictionary<string, bool>();
@@ -126,13 +126,17 @@ namespace FullWebappAutomation
         {
             CheckBox[] testsCheckboxes = new CheckBox[tests.Length];
 
+            int checkboxMarginLeft, checkboxMarginTop;
+
             // Create checkboxes according to tests array
             for (int i = 0; i < tests.Length; i++)
             {
+                checkboxMarginLeft = marginLeft + (marginLeft * 7) * (i / 8);
+                checkboxMarginTop = (marginTop * 12) + marginTop * (i % 8);
                 testsCheckboxes[i] = new CheckBox
                 {
                     Content = tests[i],
-                    Margin = new Thickness(marginLeft, (marginTop * 12) + marginTop * i, 0, 0)
+                    Margin = new Thickness(checkboxMarginLeft, checkboxMarginTop, 0, 0)
 
                 };
                 testsCheckboxes[i].Checked += Checkbox_Changed;

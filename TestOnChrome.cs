@@ -88,79 +88,10 @@ namespace FullWebappAutomation
                 BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
             }
 
-            if (testsToRun["All Backoffice Menus"])
+            if (testsToRun["Continue Ordering"])
             {
-                Backoffice.GeneralActions.SandboxLogin(backofficeDriver, username, password);
-
-                Backoffice.CompanyProfile.App_Home_Screen(backofficeDriver);
-                Backoffice.CompanyProfile.Branding(backofficeDriver);
-                Backoffice.CompanyProfile.Company_Profile(backofficeDriver);
-                Backoffice.CompanyProfile.Email_Settings(backofficeDriver);
-                Backoffice.CompanyProfile.Home_Screen_Shortcut(backofficeDriver);
-                Backoffice.CompanyProfile.Security(backofficeDriver);
-                Backoffice.CompanyProfile.Sync_Settings(backofficeDriver);
-
-                Backoffice.Catalogs.Manage_Catalogs(backofficeDriver);
-                Backoffice.Catalogs.Edit_Form(backofficeDriver);
-                Backoffice.Catalogs.Catalog_Views(backofficeDriver);
-                Backoffice.Catalogs.Fields(backofficeDriver);
-
-                Backoffice.Items.Order_Center_Thumbnail_Views(backofficeDriver);
-                Backoffice.Items.Order_Center_Grid_View(backofficeDriver);
-                Backoffice.Items.Order_Center_Matrix_View(backofficeDriver);
-                Backoffice.Items.Order_Center_Flat_Matrix_View(backofficeDriver);
-                Backoffice.Items.Order_Center_Item_Details_View(backofficeDriver);
-                Backoffice.Items.Catalog_Item_View(backofficeDriver);
-                Backoffice.Items.Item_Share_Email_Info(backofficeDriver);
-                Backoffice.Items.Smart_Search(backofficeDriver);
-                Backoffice.Items.Filters(backofficeDriver);
-                Backoffice.Items.Automated_Image_Uploader(backofficeDriver);
-                Backoffice.Items.Fields(backofficeDriver);
-
-                Backoffice.Accounts.Views_And_Forms(backofficeDriver);
-                Backoffice.Accounts.Accounts_Lists(backofficeDriver);
-                Backoffice.Accounts.Accounts_Lists_New(backofficeDriver);
-                Backoffice.Accounts.Map_View(backofficeDriver);
-                Backoffice.Accounts.Card_Layout(backofficeDriver);
-                Backoffice.Accounts.Account_Dashboard_Layout(backofficeDriver);
-                Backoffice.Accounts.Search(backofficeDriver);
-                Backoffice.Accounts.Smart_Search(backofficeDriver);
-                Backoffice.Accounts.Fields(backofficeDriver);
-
-                Backoffice.PricingPolicy.Pricing_Policy(backofficeDriver);
-                Backoffice.PricingPolicy.Price_Level(backofficeDriver);
-                Backoffice.PricingPolicy.Main_Category_Discount(backofficeDriver);
-                Backoffice.PricingPolicy.Account_Special_Price_List(backofficeDriver);
-
-                Backoffice.Users.Manage_Users(backofficeDriver);
-                Backoffice.Users.Role_Heirarchy(backofficeDriver);
-                Backoffice.Users.Profiles(backofficeDriver);
-                Backoffice.Users.User_Lists(backofficeDriver);
-                Backoffice.Users.Targets_Type(backofficeDriver);
-                Backoffice.Users.Manage_Targets(backofficeDriver);
-                Backoffice.Users.Rep_Dashboard_Add_Ons(backofficeDriver);
-
-                Backoffice.Contacts.Contact_Lists(backofficeDriver);
-
-                Backoffice.SalesActivities.Transaction_Types(backofficeDriver);
-                Backoffice.SalesActivities.Activity_Types(backofficeDriver);
-                Backoffice.SalesActivities.Sales_Activity_Lists(backofficeDriver);
-                Backoffice.SalesActivities.Activity_List_Display_Options(backofficeDriver);
-                Backoffice.SalesActivities.Activities_And_Menu_Setup(backofficeDriver);
-                Backoffice.SalesActivities.Sales_Dashboard_Settings(backofficeDriver);
-
-                Backoffice.ActivityPlanning.Account_Lists(backofficeDriver);
-                Backoffice.ActivityPlanning.Activity_Planning_Display_Options(backofficeDriver);
-
-                Backoffice.ERPIntegration.Plugin_Settings(backofficeDriver);
-                Backoffice.ERPIntegration.Configuration(backofficeDriver);
-                Backoffice.ERPIntegration.File_Uploads_And_Logs(backofficeDriver);
-
-                Backoffice.ConfigurationFiles.Automated_Reports(backofficeDriver);
-                Backoffice.ConfigurationFiles.Configuration_Files(backofficeDriver);
-                Backoffice.ConfigurationFiles.Translation_Files(backofficeDriver);
-                Backoffice.ConfigurationFiles.Online_Add_Ons(backofficeDriver);
-                Backoffice.ConfigurationFiles.User_Defined_Tables(backofficeDriver);
+                Delegator delegatedFunction = Webapp_Sandbox_Continue_Ordering;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
             }
         }
 
