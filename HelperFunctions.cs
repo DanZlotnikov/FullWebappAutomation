@@ -264,7 +264,7 @@ namespace FullWebappAutomation
                 {
                     element = driver.FindElementByXPath(elementXPath);
                     var value = element.GetAttribute(attribute);
-
+                    Highlight(driver, element);
                     return value;
                 }
                 catch (Exception e)

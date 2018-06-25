@@ -93,6 +93,25 @@ namespace FullWebappAutomation
                 Delegator delegatedFunction = Webapp_Sandbox_Continue_Ordering;
                 BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
             }
+
+            if (testsToRun["Duplicate Line Item"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Duplicate_Line;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
+            if (testsToRun["Inventory Alert"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Inventory_Alert;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
+            if (testsToRun["Search Activity"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Search_Activity;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
         }
 
         public static void RunTests(string chosenUsername, Dictionary<string, bool> testsToRun)

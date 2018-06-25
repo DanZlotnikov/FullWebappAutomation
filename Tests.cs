@@ -145,6 +145,11 @@ namespace FullWebappAutomation
 
             GetToOrderCenter_SalesOrder(webappDriver);
 
+            // Small view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li");
+            Thread.Sleep(bufferTime);
+
             // Item qty plus
             SafeClick(webappDriver,
                "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[8]/figure/app-custom-field-generator/app-custom-quantity-selector/div/span[2]/i");
@@ -156,6 +161,11 @@ namespace FullWebappAutomation
 
             // Cart
             SafeClick(webappDriver, "//button[@id='goToCartBtn']/span");
+
+            // Small view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li[2]");
+            Thread.Sleep(bufferTime);
 
             // Transaction Menu
             SafeClick(webappDriver, "//div[@id='containerActions']/ul/li/a/i");
@@ -199,8 +209,6 @@ namespace FullWebappAutomation
         /// <param name="orderInfo"></param>
         public static void Webapp_Sandbox_Check_Sales_Order(RemoteWebDriver webappDriver, Dictionary<string, string> orderInfo)
         {
-            webappDriver.Navigate().GoToUrl(webappSandboxHomePageUrl);
-
             // Activities
             SafeClick(webappDriver, "//div[@id='mainCont']/app-home-page/footer/div/div[2]/div[2]/div");
 
@@ -505,6 +513,11 @@ namespace FullWebappAutomation
         {
             GetToOrderCenter_SalesOrder(webappDriver);
 
+            // Small view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li");
+            Thread.Sleep(bufferTime);
+
             // Get item name from webpage
             string itemName = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[6]/figure/app-custom-field-generator/app-custom-textbox/label/span", "innerHTML");
 
@@ -534,13 +547,18 @@ namespace FullWebappAutomation
         {
             GetToOrderCenter_SalesOrder(webappDriver);
 
+            // Small view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li");
+            Thread.Sleep(bufferTime);
+
             // Get item ID from webpage
             string itemID = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[7]/figure/app-custom-field-generator/app-custom-textbox/label/span", "innerHTML");
 
-            // Get item's min qty
+            // Get item data from api
             var apiData = GetApiData(username, password, "items", "ExternalID", itemID);
 
-            // Parse the data to integer and store it in variable
+            // Parse the data to integer and store it in variable - min qty
             Int32.TryParse(apiData[0].MinimumQuantity.ToString(), out int apiItemMinQty);
 
             Assert(apiItemMinQty > 1, "Item Qty is 1, unable to perform test");
@@ -567,6 +585,11 @@ namespace FullWebappAutomation
         {
             GetToOrderCenter_SalesOrder(webappDriver);
 
+            // Small view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li");
+            Thread.Sleep(bufferTime);
+
             // First item qty plus
             SafeClick(webappDriver,
                 "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[8]/figure/app-custom-field-generator/app-custom-quantity-selector/div/span[2]/i");
@@ -577,6 +600,11 @@ namespace FullWebappAutomation
 
             // Cart
             SafeClick(webappDriver, "//button[@id='goToCartBtn']/span");
+
+            // Small view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li");
+            Thread.Sleep(bufferTime);
 
             // Click minus button on first item
             SafeClick(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[5]/figure/app-custom-field-generator/app-custom-quantity-selector/div/span/i");
@@ -608,12 +636,22 @@ namespace FullWebappAutomation
         {
             GetToOrderCenter_SalesOrder2(webappDriver);
 
+            // Small view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li");
+            Thread.Sleep(bufferTime);
+
             // First item qty plus
             SafeClick(webappDriver,
                 "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[5]/figure/app-custom-field-generator/app-custom-quantity-selector/div/span[2]/i");
 
             // Cart
             SafeClick(webappDriver, "//button[@id='goToCartBtn']/span");
+
+            // Small view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li");
+            Thread.Sleep(bufferTime);
 
             // Get unit price
             string unitPriceStr = SafeGetValue(webappDriver, "//label[@id='UnitPrice']", "innerHTML");
@@ -666,6 +704,11 @@ namespace FullWebappAutomation
 
             GetToOrderCenter_SalesOrder(webappDriver);
 
+            // Small view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li");
+            Thread.Sleep(bufferTime);
+
             // Item qty plus
             SafeClick(webappDriver,
                "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[8]/figure/app-custom-field-generator/app-custom-quantity-selector/div/span[2]/i");
@@ -677,6 +720,11 @@ namespace FullWebappAutomation
 
             // Cart
             SafeClick(webappDriver, "//button[@id='goToCartBtn']/span");
+
+            // Small view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li");
+            Thread.Sleep(bufferTime);
 
             // Transaction Menu
             SafeClick(webappDriver, "//div[@id='containerActions']/ul/li/a/i");
@@ -735,11 +783,113 @@ namespace FullWebappAutomation
             SafeClick(webappDriver, "//button[@id='btnTransition']/span");
         }
 
-
         // Checked with "Sales Order"
         public static void Webapp_Sandbox_Duplicate_Line(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
         {
+            GetToOrderCenter_SalesOrder(webappDriver);
 
+            // Small view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li");
+            Thread.Sleep(bufferTime);
+
+            // First item qty plus
+            SafeClick(webappDriver,
+                "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[8]/figure/app-custom-field-generator/app-custom-quantity-selector/div/span[2]/i");
+
+            // Cart
+            SafeClick(webappDriver, "//button[@id='goToCartBtn']/span");
+
+            // GridLine view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li[2]");
+            Thread.Sleep(bufferTime);
+
+            // Select item
+            SafeClick(webappDriver, "(//input[@type='checkbox'])[2]");
+
+            // Edit
+            SafeClick(webappDriver, "//li[@id='editButton']/a/i");
+
+            // Duplicate
+            SafeClick(webappDriver, "//li[@id='dropdownActionsDuplicate']/span");
+
+            // Duplicate popup button
+            SafeClick(webappDriver, "(//div[@type='button'])[2]");
+
+            string item1 = SafeGetValue(webappDriver, "//body/app-root/div/app-cart/div/div/div/div/app-custom-list/virtual-scroll/div/div/app-custom-form/fieldset/div[4]/app-custom-field-generator/app-custom-textbox/label", "title");
+            string item2 = SafeGetValue(webappDriver, "//body/app-root/div/app-cart/div/div/div/div/app-custom-list/virtual-scroll/div/div[2]/app-custom-form/fieldset/div[4]/app-custom-field-generator/app-custom-textbox/label", "title");
+
+            Assert(item1 == item2, "Duplicate action failed");
+        }
+
+        // Checked with "Sales Order 2"
+        public static void Webapp_Sandbox_Inventory_Alert(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            GetToOrderCenter_SalesOrder2(webappDriver);
+
+            // Small view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li");
+            Thread.Sleep(bufferTime);
+
+            // Get item Name from webpage
+            string itemID = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[3]/figure/app-custom-field-generator/app-custom-textbox/label/span", "innerHTML");
+
+            // Get item api data
+            var apiData = GetApiData(username, password, "items", "Name", itemID);
+
+            // Parse out InternalID
+            string InternalID = apiData[0].InternalID.ToString();
+
+            // Get item inverntory data from api
+            apiData = GetApiData(username, password, "inventory", "ItemInternalID", InternalID);
+
+            // Parse out InStockQuantity
+            Int32.TryParse(apiData[0].InStockQuantity.ToString(), out int inStockQuantity);
+
+            // Item Qty selector field
+            SafeClick(webappDriver, "//input[@id='UnitsQuantity']");
+
+            // Insert less than min qty into qty selector
+            SafeSendKeys(webappDriver, "//input[@id='UnitsQuantity']", (inStockQuantity + 20).ToString());
+
+            // Click outside the box
+            SafeClick(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]");
+
+            Thread.Sleep(bufferTime);
+
+            string quantityStr = SafeGetValue(webappDriver, "//input[@id='UnitsQuantity']", "title");
+
+            double quantity = Double.Parse(quantityStr);
+
+            Assert(quantity == (double)inStockQuantity, "Inverntory auto-set failed");
+        }
+
+        public static void Webapp_Sandbox_Search_Activity(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            // Activities
+            SafeClick(webappDriver, "//div[@id='mainCont']/app-home-page/footer/div/div[2]/div[2]/div");
+
+            // Get first activity ID and remark
+            string id = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/div[2]/app-custom-field-generator/app-custom-textbox/label", "title").ToString();
+            string remark = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span", "title").ToString();
+
+            // Click search icon, then search box
+            SafeClick(webappDriver, "//li[@id='btnSearch']/a/span");
+            SafeClick(webappDriver, "//li[@id='btnSearch']/div/input");
+
+            // Insert ID into search bar and click search
+            SafeSendKeys(webappDriver, "//li[@id='btnSearch']/div/input", id);
+            SafeClick(webappDriver, "//li[@id='btnSearch']/a/span");
+
+            Thread.Sleep(3000);
+
+            // Get found item's ID and remark
+            string foundID = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/div[2]/app-custom-field-generator/app-custom-textbox/label", "title").ToString();
+            string foundRemark = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span", "title").ToString();
+
+            Assert((foundID == id) && (foundRemark == remark), "Activity search failed");
         }
     }
 }

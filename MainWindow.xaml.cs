@@ -49,7 +49,10 @@ namespace FullWebappAutomation
                 "Minimum Quantity",
                 "Delete Cart Item",
                 "Unit Price Discount",
-                "Continue Ordering"
+                "Continue Ordering",
+                "Duplicate Line Item", 
+                "Inventory Alert",
+                "Search Activity"
             };
 
             testsToRun = new Dictionary<string, bool>();
