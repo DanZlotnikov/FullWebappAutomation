@@ -106,18 +106,15 @@ namespace FullWebappAutomation
                 // Login button
                 SafeClick(webappDriver, "//button[@type='submit']");
             }
-
             catch (Exception e)
             {
                 error = e;
                 testSuccess = false;
             }
-
             finally
             {
                 WriteToSuccessLog("Webapp_Sandbox_Login", testSuccess, error);
             }
-
         }
 
 
@@ -129,7 +126,7 @@ namespace FullWebappAutomation
             if (!(webappDriver.Url.Contains("/rec")))
                 webappDriver.Navigate().GoToUrl(webappSandboxHomePageUrl + "/rec");
 
-            // Resync
+            // Click "Resync"
             SafeClick(webappDriver, "/html/body/app-root/div/app-home-page/app-user-helper/div/nav/div/div/ul/li[2]/a");
 
             // Start Resyncing

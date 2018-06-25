@@ -289,12 +289,12 @@ namespace FullWebappAutomation
         {
             // Highlight element
             var jsDriver = (IJavaScriptExecutor)driver;
-            string highlightJavascript = @"arguments[0].style.cssText = ""background: yellow; border-width: 2px; border-style: solid; border-color: red"";";
+            string highlightJavascript = @"arguments[0].style.cssText = 'background: yellow; border-width: 2px; border-style: solid; border-color: red';";
             jsDriver.ExecuteScript(highlightJavascript, new object[] { element });
 
             // Restore element css to original 
             System.Threading.Thread.Sleep(500);
-            string originalStyleJavascript = @"arguments[0].style.cssText = ""background: none; border-width: 1px; border-style: solid; border-color: transparent"";";
+            string originalStyleJavascript = @"arguments[0].style.cssText = '';";
             jsDriver.ExecuteScript(originalStyleJavascript, new object[] { element });
         }
 
