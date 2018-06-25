@@ -784,7 +784,7 @@ namespace FullWebappAutomation
         }
 
         // Checked with "Sales Order"
-        public static void Webapp_Sandbox_Duplicate_Line(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        public static void Webapp_Sandbox_Duplicate_Line_Item(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
         {
             GetToOrderCenter_SalesOrder(webappDriver);
 

@@ -96,7 +96,7 @@ namespace FullWebappAutomation
 
             if (testsToRun["Duplicate Line Item"])
             {
-                Delegator delegatedFunction = Webapp_Sandbox_Duplicate_Line;
+                Delegator delegatedFunction = Webapp_Sandbox_Duplicate_Line_Item;
                 BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
             }
 
