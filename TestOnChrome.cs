@@ -112,6 +112,12 @@ namespace FullWebappAutomation
                 BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
             }
 
+            if (testsToRun["Delete Activity"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Delete_Activity;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
         }
 
         public static void RunTests(string chosenUsername, Dictionary<string, bool> testsToRun)

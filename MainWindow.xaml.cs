@@ -52,7 +52,8 @@ namespace FullWebappAutomation
                 "Continue Ordering",
                 "Duplicate Line Item", 
                 "Inventory Alert",
-                "Search Activity"
+                "Search Activity",
+                "Delete Activity"
             };
 
             testsToRun = new Dictionary<string, bool>();

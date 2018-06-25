@@ -891,5 +891,31 @@ namespace FullWebappAutomation
 
             Assert((foundID == id) && (foundRemark == remark), "Activity search failed");
         }
+
+        public static void Webapp_Sandbox_Delete_Activity(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            // Activities
+            SafeClick(webappDriver, "//div[@id='mainCont']/app-home-page/footer/div/div[2]/div[2]/div");
+
+            // Get first activity ID and remark
+            string id = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/div[2]/app-custom-field-generator/app-custom-textbox/label", "title").ToString();
+
+            // Select first activity
+            SafeClick(webappDriver, "(//input[@type='checkbox'])[2]");
+
+            // Click edit pencil 
+            SafeClick(webappDriver, "//span[@id='pencilId']");
+
+            // Click "delete"
+            SafeClick(webappDriver, "//li[@id='dropdownActionsDelete']/span");
+
+            // "Continue" on popup
+            SafeClick(webappDriver, "(//div[@type='button'])[2]");
+            Thread.Sleep(7000);
+
+            string foundID = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/div[2]/app-custom-field-generator/app-custom-textbox/label", "title").ToString();
+
+            Assert(id != foundID, "Delete activity action failed");
+        }
     }
 }
