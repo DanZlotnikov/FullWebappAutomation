@@ -118,6 +118,35 @@ namespace FullWebappAutomation
                 BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
             }
 
+            if (testsToRun["Account Search Activity"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Account_Search_Activity;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
+            if (testsToRun["Account Drill Down"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Account_Drill_Down;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
+            if (testsToRun["Enter To Activity"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Enter_To_Activity;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
+            if (testsToRun["Account Activity Drilldown"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Account_Activity_Drilldown;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+            
+            if (testsToRun["Breadcrumbs Navigation"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Breadcrumbs_Navigation;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
         }
 
         public static void RunTests(string chosenUsername, Dictionary<string, bool> testsToRun)

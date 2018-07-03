@@ -26,16 +26,13 @@ namespace FullWebappAutomation
 
         public string chosenUsername;
 
-        Dictionary<string, bool> testsToRun; // <testName, bool> format to store which tests were chosen
+        Dictionary<string, bool> testsToRun; // <testName, bool> format to store which tests were chosen to run
 
         public static int marginTop = 15;
         public static int marginLeft = 23;
 
         public RadioButton[] usersRadioButtons;
 
-        /// <summary>
-        /// Initializes all class variables
-        /// </summary>
         private void InitVariables()
         {
             usernames = new string[] { "automation@pepperitest.com", "flatqa@pepperitest.com", "daniel3@pepperitest.com" };
@@ -53,7 +50,12 @@ namespace FullWebappAutomation
                 "Duplicate Line Item", 
                 "Inventory Alert",
                 "Search Activity",
-                "Delete Activity"
+                "Delete Activity",
+                "Account Search Activity",
+                "Account Drill Down",
+                "Enter To Activity",
+                "Account Activity Drilldown",
+                "Breadcrumbs Navigation"
             };
 
             testsToRun = new Dictionary<string, bool>();

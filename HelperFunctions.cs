@@ -137,7 +137,7 @@ namespace FullWebappAutomation
         /// </summary>
         /// <param name="driver"></param>
         /// <param name="elementXPath"></param>
-        public static void SafeClick(RemoteWebDriver driver, string elementXPath)
+        public static void SafeClick(RemoteWebDriver driver, string elementXPath, int safeWait = 1000)
         {
             IWebElement element;
 
@@ -147,14 +147,14 @@ namespace FullWebappAutomation
                 try
                 {
                     element = driver.FindElementByXPath(elementXPath);
-                    Highlight(driver, element);
+                    Highlight(driver, element, safeWait / 2);
                     element.Click();
 
                     break;
                 }
                 catch (Exception e)
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(safeWait);
                     retryCount++;
                     continue;
                 }
@@ -187,7 +187,7 @@ namespace FullWebappAutomation
         /// <param name="driver"></param>
         /// <param name="elementXPath"></param>
         /// <param name="KeysToSend"></param>
-        public static void SafeSendKeys(RemoteWebDriver driver, string elementXPath, string KeysToSend)
+        public static void SafeSendKeys(RemoteWebDriver driver, string elementXPath, string KeysToSend, int safeWait = 1000)
         {
             IWebElement element;
 
@@ -197,14 +197,14 @@ namespace FullWebappAutomation
                 try
                 {
                     element = driver.FindElementByXPath(elementXPath);
-                    Highlight(driver, element);
+                    Highlight(driver, element, safeWait / 2);
                     element.SendKeys(KeysToSend);
 
                     return;
                 }
                 catch (Exception e)
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(safeWait);
                     retryCount++;
                     continue;
                 }
@@ -219,7 +219,7 @@ namespace FullWebappAutomation
         /// Clears an element in the web page. Uses retry logic.
         /// </summary>
         /// <param name="driver"></param>
-        public static void SafeClear(RemoteWebDriver driver, string elementXPath)
+        public static void SafeClear(RemoteWebDriver driver, string elementXPath, int safeWait = 1000)
         {
             IWebElement element;
 
@@ -229,13 +229,13 @@ namespace FullWebappAutomation
                 try
                 {
                     element = driver.FindElementByXPath(elementXPath);
-                    Highlight(driver, element);
+                    Highlight(driver, element, safeWait / 2);
                     element.Clear();
                     return;
                 }
                 catch (Exception e)
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(safeWait);
                     retryCount++;
                     continue;
                 }
@@ -253,7 +253,7 @@ namespace FullWebappAutomation
         /// <param name="elementXPath"></param>
         /// <param name="attribute"></param>
         /// <returns></returns>
-        public static dynamic SafeGetValue(RemoteWebDriver driver, string elementXPath, string attribute)
+        public static dynamic SafeGetValue(RemoteWebDriver driver, string elementXPath, string attribute, int safeWait = 1000)
         {
             IWebElement element;
 
@@ -264,12 +264,12 @@ namespace FullWebappAutomation
                 {
                     element = driver.FindElementByXPath(elementXPath);
                     var value = element.GetAttribute(attribute);
-                    Highlight(driver, element);
+                    Highlight(driver, element, safeWait / 2);
                     return value;
                 }
                 catch (Exception e)
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(safeWait);
                     retryCount++;
                     continue;
                 }
@@ -285,7 +285,7 @@ namespace FullWebappAutomation
         /// </summary>
         /// <param name="driver"></param>
         /// <param name="element"></param>
-        public static void Highlight(IWebDriver driver, IWebElement element)
+        public static void Highlight(IWebDriver driver, IWebElement element, int safeWait)
         {
             // Highlight element
             var jsDriver = (IJavaScriptExecutor)driver;
@@ -293,7 +293,7 @@ namespace FullWebappAutomation
             jsDriver.ExecuteScript(highlightJavascript, new object[] { element });
 
             // Restore element css to original 
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(safeWait);
             string originalStyleJavascript = @"arguments[0].style.cssText = '';";
             jsDriver.ExecuteScript(originalStyleJavascript, new object[] { element });
         }

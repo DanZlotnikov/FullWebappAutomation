@@ -914,5 +914,133 @@ namespace FullWebappAutomation
 
             Assert(id != foundID, "Delete activity action failed");
         }
+
+        public static void Webapp_Sandbox_Account_Search_Activity(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            // Accounts
+            SafeClick(webappDriver, "//div[@id='mainCont']/app-home-page/footer/div/div[2]/div/div");
+
+            // First account
+            SafeClick(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div[1]/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span");
+
+            // Get first activity id
+            string id = SafeGetValue(webappDriver, " //body/app-root/div/app-accounts-home-page/div/div[2]/div/div/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/div[2]/app-custom-field-generator/app-custom-textbox/label", "title");
+
+            // Get remark
+            string remark = SafeGetValue(webappDriver, " //body/app-root/div/app-accounts-home-page/div/div[2]/div/div/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span", "title");
+
+            // Click search button
+            SafeClick(webappDriver, "//li[@id='btnSearch']/a/span");
+
+            // Input id
+            SafeClick(webappDriver, "//li[@id='btnSearch']/div/input");
+            SafeSendKeys(webappDriver, "//li[@id='btnSearch']/div/input", id);
+
+            // Click search button
+            SafeClick(webappDriver, "//li[@id='btnSearch']/a/span");
+            Thread.Sleep(bufferTime);
+
+            // Assert activity found (same remark and id)
+            string foundId = SafeGetValue(webappDriver, "//body/app-root/div/app-accounts-home-page/div/div[2]/div/div/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/div[2]/app-custom-field-generator/app-custom-textbox/label", "title");
+            string foundRemark = SafeGetValue(webappDriver, "//body/app-root/div/app-accounts-home-page/div/div[2]/div/div/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span", "title");
+
+            Assert(id == foundId && remark == foundRemark, "Account activity search failed");
+        }
+
+        public static void Webapp_Sandbox_Account_Drill_Down(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            // Accounts
+            SafeClick(webappDriver, "//div[@id='mainCont']/app-home-page/footer/div/div[2]/div/div");
+
+            // Get first account's name and drill down into it
+            string name = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div[1]/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span", "title");
+            SafeClick(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div[1]/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span");
+
+            // Get account name from top of page and assert
+            string nameInside = SafeGetValue(webappDriver, "//div[@id='accountsHomePageCont']/acc-details/div/div/div/label", "innerHTML");
+
+            Assert(name == nameInside, "Account drill down failed");
+        }
+
+        public static void Webapp_Sandbox_Enter_To_Activity(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            // Activities
+            SafeClick(webappDriver, "//div[@id='mainCont']/app-home-page/footer/div/div[2]/div[2]/div");
+
+            string remark = "";
+            string type = "";
+            string id = "";
+            int i = 0;
+
+            // Get activity IDs and remarks until you find one with a remark 
+            while (remark == "" || (type != "Sales Order" && type != "Sales Order  2"))
+            {
+                try
+                {
+                    i++;
+                    remark = SafeGetValue(webappDriver, string.Format("//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div[{0}]/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span", i), "title", safeWait: 100).ToString();
+                    id = SafeGetValue(webappDriver, string.Format("//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div[{0}]/app-custom-form/fieldset/div[2]/app-custom-field-generator/app-custom-textbox/label", i), "title", safeWait: 100).ToString();
+                    type = SafeGetValue(webappDriver, string.Format("(//label[@id='Type'])[{0}]", i), "title", safeWait: 50);
+                }
+                catch { break; }
+            }
+
+            // Drill down to the chosen activity
+            SafeClick(webappDriver, string.Format("//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div[{0}]/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span", i));
+
+            Thread.Sleep(bufferTime);
+            string continueOrderingButton = SafeGetValue(webappDriver, "(//button[@type='button'])[2]", "innerHTML");
+
+            Assert(continueOrderingButton == "Continue ordering", "Enter to activity failed (couldn't find continue ordering button)");
+        }
+
+        public static void Webapp_Sandbox_Account_Activity_Drilldown(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            // Accounts
+            SafeClick(webappDriver, "//div[@id='mainCont']/app-home-page/footer/div/div[2]/div/div");
+
+            // Drill down into first account
+            SafeClick(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div[1]/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span");
+
+            string remark = "";
+            string type = "";
+            string id = "";
+            int i = 0;
+
+            // Get activity IDs and remarks until you find one with a remark 
+            while (remark == "" || (type != "Sales Order" && type != "Sales Order  2"))
+            {
+                try
+                {
+                    i++;
+                    remark = SafeGetValue(webappDriver, string.Format("//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div[{0}]/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span", i), "title").ToString();
+                    id = SafeGetValue(webappDriver, string.Format("//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div[{0}]/app-custom-form/fieldset/div[2]/app-custom-field-generator/app-custom-textbox/label", i), "title").ToString();
+                    type = SafeGetValue(webappDriver, string.Format("(//label[@id='Type'])[{0}]", i), "title");
+                }
+                catch { break; }
+            }
+
+            // Drill down to the chosen activity
+            SafeClick(webappDriver, string.Format("//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div[{0}]/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span", i));
+
+            Thread.Sleep(bufferTime);
+            string continueOrderingButton = SafeGetValue(webappDriver, "(//button[@type='button'])[2]", "innerHTML");
+
+            Assert(continueOrderingButton == "Continue ordering", "Account activity drilldown failed (couldn't find continue ordering button)");
+        }
+
+        public static void Webapp_Sandbox_Breadcrumbs_Navigation(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            GetToOrderCenter_SalesOrder(webappDriver);
+
+            // Item info
+            SafeClick(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile/figure/app-custom-field-generator/app-custom-image/span/i");
+
+            // App back button
+            SafeClick(webappDriver, "//div[@id='header']/div/div");
+        
+            // Get item name from webpage
+            string itemName = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[6]/figure/app-custom-field-generator/app-custom-textbox/label/span", "innerHTML");
+        }
     }
 }
