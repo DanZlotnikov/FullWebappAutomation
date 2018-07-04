@@ -87,7 +87,6 @@ namespace FullWebappAutomation
             Backoffice.ConfigurationFiles.User_Defined_Tables(backofficeDriver);
         }
 
-
         public static void Webapp_Sandbox_Login(RemoteWebDriver webappDriver, string username, string password)
         {
             Exception error = null;
@@ -116,7 +115,6 @@ namespace FullWebappAutomation
                 WriteToSuccessLog("Webapp_Sandbox_Login", testSuccess, error);
             }
         }
-
 
         public static void Webapp_Sandbox_Resync(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
         {
@@ -285,7 +283,6 @@ namespace FullWebappAutomation
             Assert(apiActivityID == actualActivityID, "BO activity id doesn't match sql data");
         }
 
-
         public static void Webapp_Sandbox_Config_Home_Button(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
         {
             bool homeButtonMatch = false;
@@ -383,7 +380,6 @@ namespace FullWebappAutomation
             // Save button
             SafeClick(backofficeDriver, "//div[@id='formContTemplate']/div[4]/div/div");
         }
-
 
         public static void Webapp_Sandbox_Config_App_Buttons(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
         {
@@ -1041,6 +1037,91 @@ namespace FullWebappAutomation
         
             // Get item name from webpage
             string itemName = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[6]/figure/app-custom-field-generator/app-custom-textbox/label/span", "innerHTML");
+        }
+
+        public static void Webapp_Sandbox_Duplicate_Transaction(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            GetToOrderCenter_SalesOrder2(webappDriver);
+
+            // Small view
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/span");
+            SafeClick(webappDriver, "//div[@id='header']/div/div[4]/ul/li/ul/li");
+            Thread.Sleep(bufferTime);
+
+            // First item qty plus
+            SafeClick(webappDriver,
+                "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[5]/figure/app-custom-field-generator/app-custom-quantity-selector/div/span[2]/i");
+            Thread.Sleep(bufferTime);
+
+            // Get units qty from qty selector
+            string originalQty = SafeGetValue(webappDriver, "//input[@id='UnitsQuantity']", "title");
+            Console.WriteLine(originalQty);
+
+            // Cart
+            SafeClick(webappDriver, "//button[@id='goToCartBtn']/span");
+
+            // Transaction Menu
+            SafeClick(webappDriver, "//div[@id='containerActions']/ul/li/a/i");
+
+            // Order details
+            SafeClick(webappDriver, "//div[@id='containerActions']/ul/li/ul/li/span");
+
+            // Create remark and store it
+            string originalRemark = "Automation " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+
+            // Click remark field
+            SafeClick(webappDriver, "//div[@id='orderDetailsContainer']/app-custom-form/fieldset/div[15]/div/app-custom-field-generator/app-custom-textbox/div/input");
+
+            // Add remark
+            SafeSendKeys(webappDriver, "//div[@id='orderDetailsContainer']/app-custom-form/fieldset/div[15]/div/app-custom-field-generator/app-custom-textbox/div/input", originalRemark);
+
+            // Save button
+            SafeClick(webappDriver, "//body/app-root/div/app-order-details/app-bread-crumbs/div/div/div/div[3]/div[2]");
+
+            // Transaction Menu
+            SafeClick(webappDriver, "//div[@id='containerActions']/ul/li/a/i");
+
+            // Duplicate transaction
+            SafeClick(webappDriver, "//div[@id='containerActions']/ul/li/ul/li[3]/span");
+            Thread.Sleep(bufferTime);
+
+            // Get units qty from qty selector
+            string duplicatedQty = SafeGetValue(webappDriver, "//input[@id='UnitsQuantity']", "title");
+            Console.WriteLine(duplicatedQty);
+            // Transaction Menu
+            SafeClick(webappDriver, "//div[@id='containerActions']/ul/li/a/i");
+
+            // Order details
+            SafeClick(webappDriver, "//div[@id='containerActions']/ul/li/ul/li/span");
+
+            // Get remark from form
+            string duplicatedRemark = SafeGetValue(webappDriver, "//div[@id='orderDetailsContainer']/app-custom-form/fieldset/div[15]/div/app-custom-field-generator/app-custom-textbox/div/input", "title");
+            
+            Assert(Double.TryParse(duplicatedQty, out double result) == Double.TryParse(originalQty, out double result2) && duplicatedRemark == originalRemark, "Duplicated data doesn't match original");
+        }
+
+        public static void Webapp_Sandbox_Search_Account(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            // Accounts
+            SafeClick(webappDriver, "//div[@id='mainCont']/app-home-page/footer/div/div[2]/div/div");
+
+            // Get name of last account
+            string name = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div[4]/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span", "title").ToString();
+
+            // Click search button
+            SafeClick(webappDriver, "//li[@id='btnSearch']/a/span");
+
+            // Input name
+            SafeClick(webappDriver, "//li[@id='btnSearch']/div/input");
+            SafeSendKeys(webappDriver, "//li[@id='btnSearch']/div/input", name);
+
+            // Click search button
+            SafeClick(webappDriver, "//li[@id='btnSearch']/a/span");
+            Thread.Sleep(bufferTime);
+
+            string foundName = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div[1]/app-custom-form/fieldset/div/app-custom-field-generator/app-custom-button/a/span", "title").ToString();
+
+            Assert(name == foundName, "Account search failed (found name doesn't match expected)");
         }
     }
 }

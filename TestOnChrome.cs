@@ -147,6 +147,18 @@ namespace FullWebappAutomation
                 Delegator delegatedFunction = Webapp_Sandbox_Breadcrumbs_Navigation;
                 BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
             }
+
+            if (testsToRun["Duplicate Transaction"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Duplicate_Transaction;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+
+            if (testsToRun["Search Account"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Search_Account;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
         }
 
         public static void RunTests(string chosenUsername, Dictionary<string, bool> testsToRun)

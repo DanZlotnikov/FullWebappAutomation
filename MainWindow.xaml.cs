@@ -27,7 +27,7 @@ namespace FullWebappAutomation
         public string chosenUsername;
 
         Dictionary<string, bool> testsToRun; // <testName, bool> format to store which tests were chosen to run
-
+        Dictionary<string, bool> allTestsToRun; // <testName, bool> format to store all tests with "true"
         public static int marginTop = 15;
         public static int marginLeft = 23;
 
@@ -55,13 +55,21 @@ namespace FullWebappAutomation
                 "Account Drill Down",
                 "Enter To Activity",
                 "Account Activity Drilldown",
-                "Breadcrumbs Navigation"
+                "Breadcrumbs Navigation",
+                "Duplicate Transaction",
+                "Search Account"
             };
 
             testsToRun = new Dictionary<string, bool>();
             for (int i = 0; i < tests.Length; i++)
             {
                 testsToRun[tests[i]] = false;
+            }
+
+            allTestsToRun = new Dictionary<string, bool>();
+            for (int i = 0; i < tests.Length; i++)
+            {
+                allTestsToRun[tests[i]] = true;
             }
 
             usersRadioButtons = new RadioButton[usernames.Length];
@@ -108,7 +116,7 @@ namespace FullWebappAutomation
                 TextWrapping = new TextWrapping(),
                 VerticalAlignment = new VerticalAlignment(),
                 Width = 339,
-                Text = "Select the desired user to log into:",
+                Text = "Select test user:",
                 FontWeight = FontWeights.Bold
             };
 
@@ -157,24 +165,34 @@ namespace FullWebappAutomation
         {
             Button runButton = new Button
             {
-                Content = "Run Tests",
+                Content = "Run Selected Tests",
                 Width = 156,
                 Margin = new Thickness(-280, marginTop * 20, 0, 0),
                 Height = 28,
             };
             runButton.Click += RunButtonClicked;
 
+            Button runAllButton = new Button
+            {
+                Content = "Run All Tests",
+                Width = 156,
+                Margin = new Thickness(40, marginTop * 20, 0, 0),
+                Height = 28,
+            };
+            runAllButton.Click += RunAllButtonClicked;
+
             Button exitButton = new Button
             {
                 Content = "Exit",
                 Width = 156,
-                Margin = new Thickness(40, marginTop * 20, 0, 0),
+                Margin = new Thickness(-120, marginTop * 24, 0, 0),
                 Height = 28,
             };
             exitButton.Click += ExitButtonClicked;
 
             MainGrid.Children.Add(exitButton);        
             MainGrid.Children.Add(runButton);
+            MainGrid.Children.Add(runAllButton);
         }
     
         private void InitGrid()
@@ -190,6 +208,11 @@ namespace FullWebappAutomation
             if (chosenUsername == null)
                 return;
             else RunTests(chosenUsername, testsToRun);
+        }
+
+        private void RunAllButtonClicked(object sender, RoutedEventArgs e)
+        {
+            RunTests(chosenUsername, allTestsToRun);
         }
 
         private void ExitButtonClicked(object sender, RoutedEventArgs e)
