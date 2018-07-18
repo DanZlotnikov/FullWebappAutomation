@@ -34,11 +34,11 @@ namespace FullWebappAutomation
         /// </summary>
         public static void TestSuite(string chosenUsername, Dictionary<string, bool> testsToRun)
         {
-            username = chosenUsername;
-            password = GetUserPassword(username);
+            DanUsername = chosenUsername;
+            DanPassword = GetUserPassword(DanUsername);
 
-            Webapp_Sandbox_Login(webappDriver, username, password);
-            Backoffice.GeneralActions.SandboxLogin(backofficeDriver, username, password);
+            Webapp_Sandbox_Login(webappDriver, DanUsername, DanPassword);
+            Backoffice.GeneralActions.SandboxLogin(backofficeDriver, DanUsername, DanPassword);
 
             if(testsToRun["Resync"])
             {

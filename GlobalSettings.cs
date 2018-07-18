@@ -9,8 +9,8 @@ namespace FullWebappAutomation
         public static string performanceLogFilePath;
         public static string finalizedPerformanceLogFilePath;
         public static string UserCredentialsFilePath;
-        public static string username;
-        public static string password;
+        public static string DanUsername;
+        public static string DanPassword;
 
         public static void InitLogFiles()
         {

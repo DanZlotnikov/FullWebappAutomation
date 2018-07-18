@@ -34,7 +34,7 @@ namespace FullWebappAutomation
         /// <summary>
         /// Delegate a function into an object
         /// </summary>
-        /// <param name="webappDriver"></param>
+        /// <param name="webappDriver">@Dan Zlotnikov</param>
         /// <param name="backofficeDriver"></param>
         public delegate void Delegator(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver);
 
@@ -89,7 +89,8 @@ namespace FullWebappAutomation
             // Sales Order
             SafeClick(webappDriver, "//div[@id='actionBar']/div/ul[3]/li/ul/li/span");
 
-            /*      
+            /*     
+             *     @Dan Zlotnikov
             // Origin account
             SafeClick(webappDriver, "//body/app-root/div/app-accounts-home-page/object-chooser-modal/div/div/div/div/div/div/app-custom-list/virtual-scroll/div/div[2]/app-custom-form/fieldset/div");
 

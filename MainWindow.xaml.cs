@@ -19,7 +19,7 @@ namespace FullWebappAutomation
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DanZlotnikov : Window
     {
         public static string[] usernames; // Stores the available usernames
         public static string[] tests; // Stores the available tests
@@ -35,7 +35,7 @@ namespace FullWebappAutomation
 
         private void InitVariables()
         {
-            usernames = new string[] { "automation@pepperitest.com", "flatqa@pepperitest.com", "daniel3@pepperitest.com" };
+            usernames = new string[] { "automation@pepperitest.com", "flatqa@pepperitest.com", "dan@zlotnikov.com" };
             tests = new string[]
             {
                 "Resync",
@@ -242,7 +242,7 @@ namespace FullWebappAutomation
 
         }
 
-        public MainWindow()
+        public DanZlotnikov()
         {
             InitializeComponent();
             InitVariables();
