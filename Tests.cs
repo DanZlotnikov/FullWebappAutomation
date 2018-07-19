@@ -121,8 +121,8 @@ namespace FullWebappAutomation
             webappDriver.Navigate().GoToUrl(webappSandboxHomePageUrl);
 
             // Add "/rec" to url
-            if (!(webappDriver.Url.Contains("/rec")))
-                webappDriver.Navigate().GoToUrl(webappSandboxHomePageUrl + "/rec");
+            if (!(webappDriver.Url.Contains("/supportmenu")))
+                webappDriver.Navigate().GoToUrl(webappSandboxHomePageUrl + "/supportmenu");
 
             // Click "Resync"
             SafeClick(webappDriver, "/html/body/app-root/div/app-home-page/app-user-helper/div/nav/div/div/ul/li[2]/a");
@@ -1143,6 +1143,41 @@ namespace FullWebappAutomation
 
 
         }
+
+        public static void Webapp_Sandbox_Item_Search2(RemoteWebDriver webappDriver, RemoteWebDriver backofficeDriver)
+        {
+            GetToOrderCenter_SalesOrder(webappDriver);
+
+            // Get first item name
+            string itemName= SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[6]/figure/app-custom-field-generator/app-custom-textbox/label/span", "innerHTML").ToString();
+
+            // Click on search icon
+            SafeClick(webappDriver, "//span[@id='searchIcon']/i");
+
+            // Input item name
+            SafeSendKeys(webappDriver, "//input[@type='text']", itemName);
+
+            // Click on search icon
+            SafeClick(webappDriver, "//div[@id='searchItemCont']/div/div/span[2]/i");
+
+            // Get first item name
+            string foundItem=SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[6]/figure/app-custom-field-generator/app-custom-textbox/label/span","innerHTML");
+
+            // Assert the info
+            Assert(foundItem== itemName,"found item doesnt match expected");
+
+            // Get  ietm id from browser 
+            string itemIdFromBrowser = SafeGetValue(webappDriver, "//div[@id='viewsContainer']/app-custom-list/virtual-scroll/div[2]/div/app-custom-form/fieldset/mat-grid-list/div/mat-grid-tile[7]/figure/app-custom-field-generator/app-custom-textbox/label/span","innerHTML");
+
+            //Get item id from server
+            var apiData = GetApiData(DanUsername, DanPassword, "items1", "Name", itemName);
+            string itemIdFromServer = apiData[0].ExternalID.ToString();
+
+            //Assert  the id
+            Assert(itemIdFromBrowser == itemIdFromServer, "found id doesnt match expected");
+
+        }
+
 
     }
 }

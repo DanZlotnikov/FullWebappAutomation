@@ -57,7 +57,8 @@ namespace FullWebappAutomation
                 "Account Activity Drilldown",
                 "Breadcrumbs Navigation",
                 "Duplicate Transaction",
-                "Search Account"
+                "Search Account",
+                "item search 2"
             };
 
             testsToRun = new Dictionary<string, bool>();

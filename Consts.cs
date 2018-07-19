@@ -16,7 +16,6 @@ namespace FullWebappAutomation
         public const string backofficeSandboxLoginPageUrl = "https://sandbox.pepperi.com/Login/WrntyLogin.aspx";
         public const string backofficeSandboxHomePageUrl = "https://sandbox.pepperi.com/Views/Dashboards/OrdersDashboard.aspx?cls=1&lang=en";
 
-        public const int maxRetryCount = 30;
         public const int actionPerformanceLimit = 3;
         public const int bufferTime = 3000;
 

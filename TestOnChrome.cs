@@ -13,7 +13,6 @@ namespace FullWebappAutomation
 
         public static void SetUp()
         {
-
             DesiredCapabilities capability = DesiredCapabilities.Chrome();
             webappDriver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"), capability, TimeSpan.FromSeconds(600));
             backofficeDriver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"), capability, TimeSpan.FromSeconds(600));
@@ -157,6 +156,11 @@ namespace FullWebappAutomation
             if (testsToRun["Search Account"])
             {
                 Delegator delegatedFunction = Webapp_Sandbox_Search_Account;
+                BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
+            }
+            if (testsToRun["item search 2"])
+            {
+                Delegator delegatedFunction = Webapp_Sandbox_Item_Search2;
                 BasicTestWrapper(delegatedFunction, webappDriver, backofficeDriver);
             }
         }

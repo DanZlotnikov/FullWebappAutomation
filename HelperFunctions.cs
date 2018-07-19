@@ -89,6 +89,8 @@ namespace FullWebappAutomation
             // Sales Order
             SafeClick(webappDriver, "//div[@id='actionBar']/div/ul[3]/li/ul/li/span");
 
+            Thread.Sleep(5000);
+
             /*     
              *     @Dan Zlotnikov
             // Origin account
@@ -99,7 +101,7 @@ namespace FullWebappAutomation
             */
 
             // Default Catalog
-            SafeClick(webappDriver, "//div[@id='container']/div[2]");
+            SafeClick(webappDriver, "//div[@class='scrollable-content']/div[2]");
         }
 
         public static void GetToOrderCenter_SalesOrder2(RemoteWebDriver webappDriver)
@@ -138,12 +140,12 @@ namespace FullWebappAutomation
         /// </summary>
         /// <param name="driver"></param>
         /// <param name="elementXPath"></param>
-        public static void SafeClick(RemoteWebDriver driver, string elementXPath, int safeWait = 1000)
+        public static void SafeClick(RemoteWebDriver driver, string elementXPath, int safeWait = 1000, int maxRetry = 30)
         {
             IWebElement element;
 
             int retryCount = 1;
-            while (retryCount < maxRetryCount)
+            while (retryCount < maxRetry)
             {
                 try
                 {
@@ -162,7 +164,7 @@ namespace FullWebappAutomation
             }
 
             // If succeeded, write to performance log
-            if (retryCount < maxRetryCount)
+            if (retryCount < maxRetry)
             {
                 // Get caller test function name
                 StackTrace stackTrace = new StackTrace();
@@ -188,12 +190,12 @@ namespace FullWebappAutomation
         /// <param name="driver"></param>
         /// <param name="elementXPath"></param>
         /// <param name="KeysToSend"></param>
-        public static void SafeSendKeys(RemoteWebDriver driver, string elementXPath, string KeysToSend, int safeWait = 1000)
+        public static void SafeSendKeys(RemoteWebDriver driver, string elementXPath, string KeysToSend, int safeWait = 1000, int maxRetry = 30)
         {
             IWebElement element;
 
             int retryCount = 1;
-            while (retryCount < maxRetryCount)
+            while (retryCount < maxRetry)
             {
                 try
                 {
@@ -220,12 +222,12 @@ namespace FullWebappAutomation
         /// Clears an element in the web page. Uses retry logic.
         /// </summary>
         /// <param name="driver"></param>
-        public static void SafeClear(RemoteWebDriver driver, string elementXPath, int safeWait = 1000)
+        public static void SafeClear(RemoteWebDriver driver, string elementXPath, int safeWait = 1000, int maxRetry = 30)
         {
             IWebElement element;
 
             int retryCount = 1;
-            while (retryCount < maxRetryCount)
+            while (retryCount < maxRetry)
             {
                 try
                 {
@@ -254,12 +256,12 @@ namespace FullWebappAutomation
         /// <param name="elementXPath"></param>
         /// <param name="attribute"></param>
         /// <returns></returns>
-        public static dynamic SafeGetValue(RemoteWebDriver driver, string elementXPath, string attribute, int safeWait = 1000)
+        public static dynamic SafeGetValue(RemoteWebDriver driver, string elementXPath, string attribute, int safeWait = 1000, int maxRetry = 30)
         {
             IWebElement element;
 
             int retryCount = 1;
-            while (retryCount < maxRetryCount)
+            while (retryCount < maxRetry)
             {
                 try
                 {
@@ -417,7 +419,7 @@ namespace FullWebappAutomation
             string[] logLines = File.ReadAllLines(performanceLogFilePath);
 
             string previousTest = "";
-            int actionIndexInTest = 1;
+            int actionIndexInTest = 0;
 
             foreach (string line in logLines)
             {

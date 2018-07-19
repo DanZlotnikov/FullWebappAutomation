@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium.Remote;
 using System;
+using System.Threading;
 using static FullWebappAutomation.HelperFunctions;
 using static FullWebappAutomation.Consts;
 
@@ -26,6 +27,14 @@ namespace FullWebappAutomation
 
                     // Login button
                     SafeClick(backofficeDriver, "//div[@id='loginBtn']");
+
+                    // Close popup
+                    try
+                    {
+                        SafeClick(backofficeDriver, "//div[@id='walkme-balloon-951840']/div/div/div[2]/div/div", maxRetry: 5);
+                        Thread.Sleep(3000);
+                    }
+                    catch (Exception) { }
                 }
 
                 catch (Exception e)
